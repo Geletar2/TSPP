@@ -5,13 +5,6 @@
 #include <conio.h>
 using namespace std;
 
-#include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <list>
-#include <conio.h>
-using namespace std;
-
 class Insurance{	
 	public:
 		Insurance(){
@@ -60,6 +53,62 @@ class Insurance_Properity : public Insurance{
 			ID=_ID;
 		};
 };
+
+class Lawyer{
+	public:
+		Lawyer(){
+		}
+		string FIO_Lawyer;
+		Lawyer(int _FIO_Lawyer);
+		void Check(Insurance * Ins);
+		void Refusal(Insurance * Ins);
+		void Approved(Insurance * Ins);
+};
+
+Lawyer::Lawyer(int _Fio_Lawyer){
+	FIO_Lawyer = _Fio_Lawyer;
+}
+
+void Lawyer::Check(Insurance * Ins){
+	system("cls");
+	for (int i=0; i < Ins->FIO.size();i++){
+		if (isdigit(Ins->FIO[i]))
+			cout<<"В имени была допущена ошибка"<<endl;
+			system("pause");
+			Refusal(Ins);
+			return;		
+	}
+	
+	if (!((Ins->Num_Pasport > 999999) && (Ins->Num_Pasport<100000))){
+			cout<<"В номере паспорта была допущена ошибка"<<endl;
+			system("pause");
+			Refusal(Ins);
+			return;	
+	}
+	
+	if (!((Ins->Age < 200) && (Ins->Age>0))){
+			cout<<"В возрасте была допущена ошибка"<<endl;
+			system("pause");
+			Refusal(Ins);
+			return;	
+	}
+	
+	Approved(Ins);
+	return;
+}
+
+void Lawyer::Approved(Insurance * Ins){
+	cout<<"+"<<endl;
+	Ins->status = "Страховка";
+	system("pause");
+}
+
+void Lawyer::Refusal(Insurance * Ins){
+	cout<<"-"<<endl;
+	Ins->status = "Отказано";
+	system("pause");
+}
+
 
 int main(int argc, char** argv) {
 	return 0;
